@@ -1,0 +1,12 @@
+@function theme-color($name) {
+  $vars: (
+    header-text: red,
+  );
+  
+  @if map-has-key($vars, $name) {
+    @return map-get($vars, $name);
+  }
+
+  @warn "Variable with name #{$name} is not defined";
+  @return null;
+}
