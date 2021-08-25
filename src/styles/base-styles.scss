@@ -32,7 +32,7 @@ h1 {
   h1 {
     padding: 0;
   }
-  div, img {
+  div:nth-child(1), img {
     flex: 1;
   }
   div {
@@ -108,4 +108,8 @@ h1 {
   color: #000;
   padding-bottom: 20px;
   border-bottom: 1px solid #000;
+}
+
+.sr-only {
+  visibility: hidden;
 }
