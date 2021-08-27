@@ -3,10 +3,10 @@ import React, { useState, useEffect, Fragment } from "react";
 
 export default MetObject = (props) => {
   const [metData, setMetData] = useState(false);
-
-  useEffect(() => {
-    getRandomObject();
-  }, []);
+  const [image, setImage] = useState({
+    loading: true,
+    available: true
+  });
 
   const getRandomObject = () => {
     let randomNum = Math.random() * 470000;
@@ -16,61 +16,90 @@ export default MetObject = (props) => {
     )
       .then((response) => response.json())
       .then((data) => {
-        if (data.message == "ObjectID not found") {
+        setImage({ loading: true, available: true });
+        if (
+          data.message === "ObjectID not found" ||
+          data.message === "Not a valid object"
+        ) {
           getRandomObject();
         } else {
           setMetData(data);
         }
       });
   };
+
+  useEffect(() => {
+    getRandomObject();
+  }, []);
+
+  const handleImageLoaded = () => {
+    setImage({ ...image, loading: false });
+  };
+
+  const handleImageError = () => {
+    setImage({ loading: false, available: false });
+  };
   return (
     <div className="metObject">
       {metData ? (
         <Fragment>
-          {metData.primaryImage ? (
-            <img src={metData.primaryImage} className="col-md-6 pl-5" />
+          {image.available ? (
+            <img
+              src={metData.primaryImage}
+              alt={metData.objectName}
+              className="col-md-6 pl-5"
+              onLoad={handleImageLoaded}
+              onError={handleImageError}
+            />
           ) : (
             <Placeholder />
           )}
-          <div>
-            <h2>
-              {metData.title && metData.title.length < 1
-                ? metData.objectName
-                : metData.title}
-            </h2>
-            <p>
-              {metData.geographyType} {metData.country}{" "}
-              <span>{metData.objectDate}</span>{" "}
-              {metData.medium
-                ? " from " + metData.medium.toLowerCase() + "."
-                : ""}{" "}
-              {metData.artistDisplayName
-                ? "By " + metData.artistDisplayName + "."
-                : ""}{" "}
-              {metData.department ? metData.department + " of the " : ""}{" "}
-              {metData.repository}.{" "}
-              <span>
-                {metData.creditLine}
-                <br />
-                {metData.culture}
-              </span>
-            </p>
-            <a
-              href={metData.objectURL}
-              className="button moreBtn"
-              target="_blank"
-            >
-              View Details
-            </a>
-            <button
-              className="nextBtn"
-              onClick={() => {
-                getRandomObject();
-              }}
-            >
-              Next Slide <span>&#8594;</span>
-            </button>
-          </div>
+          {!image.loading ? (
+            <div>
+              <h2>
+                {metData.title && metData.title.length < 1
+                  ? metData.objectName
+                  : metData.title}
+              </h2>
+              <p>
+                {metData.geographyType} {metData.country}{" "}
+                <span>{metData.objectDate}</span>{" "}
+                {metData.medium
+                  ? " from " + metData.medium.toLowerCase() + "."
+                  : ""}{" "}
+                {metData.artistDisplayName
+                  ? "By " + metData.artistDisplayName + "."
+                  : ""}{" "}
+                {metData.department ? metData.department + " of the " : ""}{" "}
+                {metData.repository}.{" "}
+                <span>
+                  {metData.creditLine}
+                  <br />
+                  {metData.culture}
+                </span>
+              </p>
+              <a
+                href={metData.objectURL}
+                className="button moreBtn"
+                target="_blank"
+                rel="noreferrer"
+              >
+                View Details
+              </a>
+              <button
+                className="nextBtn"
+                onClick={() => {
+                  getRandomObject();
+                }}
+              >
+                Next Slide <span>&#8594;</span>
+              </button>
+            </div>
+          ) : (
+            <div className="spinner-border" role="status">
+              <span className="sr-only">Loading...</span>
+            </div>
+          )}
         </Fragment>
       ) : (
         ""
