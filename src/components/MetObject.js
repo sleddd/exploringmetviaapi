@@ -1,7 +1,7 @@
 import Placeholder from "./Placeholder";
 import React, { useState, useEffect, Fragment } from "react";
 
-export default MetObject = (props) => {
+export default (props) => {
   const [metData, setMetData] = useState(false);
   const [image, setImage] = useState({
     loading: true,
