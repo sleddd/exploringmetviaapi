@@ -3,6 +3,7 @@ import Image from "../General/Image/image";
 import NextButton from "../General/Button/NextButton";
 import MoreLink from "../General/Button/MoreLink";
 import Spinner from "../Placeholders/Spinner/Default/Spinner";
+import cleanURL from "../../lib/cleanURL";
 import testData from "../../../testing/testData";
 
 export default (props) => {
@@ -46,7 +47,7 @@ export default (props) => {
         <Fragment>
           <Image
             onLoadHandler={handleImageLoading}
-            url={metData.primaryImage}
+            url={cleanURL(metData.primaryImage)}
             alt={metData.objectName}
             className="col-md-6 pl-5"
           />
@@ -74,7 +75,10 @@ export default (props) => {
                   {metData.culture}
                 </span>
               </p>
-              <MoreLink link={metData.objectURL} text={"View Details"} />
+              <MoreLink
+                link={cleanURL(metData.objectURL)}
+                text={"View Details"}
+              />
               <NextButton onClickHandler={getRandomObject} text="Next Slide" />
             </div>
           ) : (

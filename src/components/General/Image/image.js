@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import Placeholder from "../../Placeholders/image/Placeholder";
-import DOMPurify from "dompurify";
+import cleanURL from "../../../lib/cleanURL";
 
 export default (props) => {
   const [image, setImage] = useState(true);
@@ -12,12 +12,11 @@ export default (props) => {
   const handleImageError = () => {
     setImage(false);
   };
-
   return (
     <Fragment>
       {image ? (
         <img
-          src={DOMPurify.sanitize(props.url)}
+          src={cleanURL(props.url)}
           alt={props.alt}
           onError={handleImageError}
           onLoad={() => {
