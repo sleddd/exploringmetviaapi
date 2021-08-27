@@ -12,6 +12,7 @@ export default (props) => {
   const handleImageError = () => {
     setImage(false);
   };
+
   return (
     <Fragment>
       {image ? (
