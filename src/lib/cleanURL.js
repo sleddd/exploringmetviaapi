@@ -1,8 +1,7 @@
 export default (url) => {
   let cleanedURL = "#";
-  if (url.length > 3) {
+  if (url.length > 0) {
     const parsed = new URL(url);
-
     // Checking protocol and host
     if (
       ["https:", "http:"].includes(parsed.protocol) &&
