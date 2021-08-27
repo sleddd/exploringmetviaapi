@@ -1,22 +1,26 @@
-import Placeholder from "./Placeholder";
 import React, { useState, useEffect, Fragment } from "react";
+import Image from "../General/Image/image";
+import NextButton from "../General/Button/NextButton";
+import MoreLink from "../General/Button/MoreLink";
+import Spinner from "../Placeholders/Spinner/Default/Spinner";
+import testData from "../../../testing/testData";
 
 export default (props) => {
   const [metData, setMetData] = useState(false);
-  const [image, setImage] = useState({
-    loading: true,
-    available: true
-  });
+  const [imgLoading, setImgLoading] = useState(true);
 
   const getRandomObject = () => {
+    // setMetData(testData);
+    //return;
     let randomNum = Math.random() * 470000;
+
     fetch(
       "https://collectionapi.metmuseum.org/public/collection/v1/objects/" +
         Math.floor(randomNum)
     )
       .then((response) => response.json())
       .then((data) => {
-        setImage({ loading: true, available: true });
+        setImgLoading(true);
         if (
           data.message === "ObjectID not found" ||
           data.message === "Not a valid object"
@@ -32,29 +36,21 @@ export default (props) => {
     getRandomObject();
   }, []);
 
-  const handleImageLoaded = () => {
-    setImage({ ...image, loading: false });
+  const handleImageLoading = (e) => {
+    setImgLoading(false);
   };
 
-  const handleImageError = () => {
-    setImage({ loading: false, available: false });
-  };
   return (
     <div className="metObject">
       {metData ? (
         <Fragment>
-          {image.available ? (
-            <img
-              src={metData.primaryImage}
-              alt={metData.objectName}
-              className="col-md-6 pl-5"
-              onLoad={handleImageLoaded}
-              onError={handleImageError}
-            />
-          ) : (
-            <Placeholder />
-          )}
-          {!image.loading ? (
+          <Image
+            onLoadHandler={handleImageLoading}
+            url={metData.primaryImage}
+            alt={metData.objectName}
+            className="col-md-6 pl-5"
+          />
+          {!imgLoading ? (
             <div>
               <h2>
                 {metData.title && metData.title.length < 1
@@ -78,27 +74,11 @@ export default (props) => {
                   {metData.culture}
                 </span>
               </p>
-              <a
-                href={metData.objectURL}
-                className="button moreBtn"
-                target="_blank"
-                rel="noreferrer"
-              >
-                View Details
-              </a>
-              <button
-                className="nextBtn"
-                onClick={() => {
-                  getRandomObject();
-                }}
-              >
-                Next Slide <span>&#8594;</span>
-              </button>
+              <MoreLink link={metData.objectURL} text={"View Details"} />
+              <NextButton onClickHandler={getRandomObject} text="Next Slide" />
             </div>
           ) : (
-            <div className="spinner-border" role="status">
-              <span className="sr-only">Loading...</span>
-            </div>
+            <Spinner />
           )}
         </Fragment>
       ) : (
