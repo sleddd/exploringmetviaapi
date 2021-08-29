@@ -1,9 +1,9 @@
 import React from "react";
-import cleanURL from "../../../lib/cleanURL";
+import validURL from "../../../lib/validURL";
 
 export default (props) => (
   <a
-    href={cleanURL(props.link)}
+    href={validURL(props.link) ? props.link : "#"}
     className="button moreBtn"
     target="_blank"
     rel="noreferrer"
