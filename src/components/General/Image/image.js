@@ -4,59 +4,54 @@ import validURL from "../../../lib/validURL";
 import Spinner from "../../General/Placeholders/Spinner/Default/Spinner";
 
 export default (props) => {
-  const [image, setImage] = useState(true);
-  const [imgLoading, setImgLoading] = useState(true);
+  const [image, setImage] = useState({
+    available: true,
+    loading: true
+  });
 
   useEffect(() => {
-    checkImgSrc();
+    checkValidSRC();
   }, [props.url]);
 
-  const checkImgSrc = () => {
-    // Set image loading to true
-    setImgLoading(true);
-    let validatedURL = validURL(props.url);
-    // Check if image exists
-    if (validatedURL) {
-      fetch(validatedURL, { method: "HEAD" })
-        .then((res) => {
-          if (res.ok) {
-            setImage(true);
-          } else {
-            setImage(false);
-            setImgLoading(false);
-          }
-        })
-        .catch((error) => {
-          // Catch and account for occasional failed to
-          // fetch error
-          setImage(true);
-        });
+  const checkValidSRC = () => {
+    if (validURL(props.url)) {
+      setImage({
+        available: true,
+        loading: true
+      });
+    } else {
+      handleImageError();
     }
   };
 
   const handleImageLoaded = () => {
-    setImgLoading(false);
+    setImage({
+      available: true,
+      loading: false
+    });
   };
 
   const handleImageError = () => {
-    setImage(false);
-    setImgLoading(false);
+    setImage({
+      available: false,
+      loading: false
+    });
   };
 
   return (
     <Fragment>
-      {image ? (
+      {image.available ? (
         <img
           src={props.url}
           alt={props.alt}
           onError={handleImageError}
           onLoad={handleImageLoaded}
-          style={{ display: imgLoading ? "none" : "block" }}
+          style={{ display: image.loading ? "none" : "block" }}
         />
       ) : (
         <Placeholder />
       )}
-      {imgLoading ? <Spinner /> : ""}
+      {image.loading ? <Spinner /> : ""}
     </Fragment>
   );
 };
