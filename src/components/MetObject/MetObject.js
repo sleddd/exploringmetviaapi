@@ -37,7 +37,7 @@ export default (props) => {
     getRandomObject();
   }, []);
 
-  const handleImageLoading = (e) => {
+  const handleImageLoading = () => {
     setImgLoading(false);
   };
 
@@ -47,7 +47,7 @@ export default (props) => {
         <Fragment>
           <Image
             onLoadHandler={handleImageLoading}
-            url={cleanURL(metData.primaryImage)}
+            url={metData.primaryImage}
             alt={metData.objectName}
             className="col-md-6 pl-5"
           />
