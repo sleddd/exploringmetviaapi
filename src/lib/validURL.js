@@ -1,5 +1,5 @@
 export default (url) => {
-  let cleanedURL = "#";
+  let validURL = false;
   if (url.length > 0) {
     const parsed = new URL(url);
     // Checking protocol and host
@@ -8,8 +8,8 @@ export default (url) => {
       ("www.metmuseum.org" === parsed.host ||
         "images.metmuseum.org" === parsed.host)
     ) {
-      cleanedURL = url;
+      validURL = url;
     }
   }
-  return cleanedURL;
+  return validURL;
 };

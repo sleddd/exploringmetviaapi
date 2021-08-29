@@ -1,9 +1,6 @@
 import React, { useEffect } from "react";
 
 export default (props) => {
-  useEffect(() => {
-    props.onLoadHandler();
-  });
   return (
     <svg xmlns="http://www.w3.org/2000/svg" width="650" viewBox="0 0 300 150">
       <rect fill="#ddd" width="100%" height="100%" />
