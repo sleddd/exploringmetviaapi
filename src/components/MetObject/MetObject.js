@@ -2,7 +2,6 @@ import React, { useState, useEffect, Fragment } from "react";
 import Image from "../General/Image/image";
 import NextButton from "../General/Button/NextButton";
 import MoreLink from "../General/Button/MoreLink";
-import validateURL from "../../lib/validURL";
 import testData from "../../../testing/testData";
 
 export default (props) => {
@@ -16,16 +15,14 @@ export default (props) => {
       "https://collectionapi.metmuseum.org/public/collection/v1/objects/" +
         Math.floor(randomNum)
     )
-      .then((response) => response.json())
-      .then((data) => {
-        if (
-          data.message === "ObjectID not found" ||
-          data.message === "Not a valid object"
-        ) {
-          getRandomObject();
-        } else {
-          setMetData(data);
+      .then((response) => {
+        if (404 === response.status) {
+          return getRandomObject();
         }
+        return response.json();
+      })
+      .then((data) => {
+        setMetData(data);
       });
   };
 
@@ -65,10 +62,7 @@ export default (props) => {
                 {metData.culture}
               </span>
             </p>
-            <MoreLink
-              link={validateURL(metData.objectURL) ? metData.objectURL : "#"}
-              text={"View Details"}
-            />
+            <MoreLink link={metData.objectURL} text={"View Details"} />
             <NextButton onClickHandler={getRandomObject} text="Next Slide" />
           </div>
         </Fragment>

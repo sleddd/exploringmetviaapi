@@ -1,6 +1,6 @@
 export default (url) => {
   let validURL = false;
-  if (url.length > 0) {
+  if (url && url.length > 0) {
     const parsed = new URL(url);
     // Checking protocol and host
     if (

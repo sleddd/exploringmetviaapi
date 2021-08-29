@@ -1,13 +1,19 @@
-import React from "react";
+import React, { Fragment } from "react";
 import validURL from "../../../lib/validURL";
 
 export default (props) => (
-  <a
-    href={validURL(props.link) ? props.link : "#"}
-    className="button moreBtn"
-    target="_blank"
-    rel="noreferrer"
-  >
-    {props.text}
-  </a>
+  <Fragment>
+    {validURL(props.link) ? (
+      <a
+        href={props.link}
+        className="button moreBtn"
+        target="_blank"
+        rel="noreferrer"
+      >
+        {props.text}
+      </a>
+    ) : (
+      ""
+    )}
+  </Fragment>
 );
