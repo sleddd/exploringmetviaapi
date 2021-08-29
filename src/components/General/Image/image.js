@@ -12,17 +12,18 @@ export default (props) => {
   }, [props.url]);
 
   const checkImgSrc = () => {
-    // Validate url
+    // Set image loading to true
     setImgLoading(true);
     let validatedURL = validURL(props.url);
+    // Check if image exists
     if (validatedURL) {
-      // Check to make sure image exsists
-      fetch(validatedURL, { method: "GET" })
+      fetch(validatedURL, { method: "HEAD" })
         .then((res) => {
           if (res.ok) {
             setImage(true);
           } else {
             setImage(false);
+            setImgLoading(false);
           }
         })
         .catch((error) => {
