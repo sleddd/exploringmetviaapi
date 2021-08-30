@@ -1,27 +1,44 @@
 import React from "react";
-import { shallow, mount } from "../../../enzyme";
 import MetObject from "../MetObject/MetObject";
 import testData from "../../../testing/testData";
+import { render, unmountComponentAtNode } from "react-dom";
+import { act } from "react-dom/test-utils";
+
+const waitForAPI = () => new Promise((resolve) => setTimeout(resolve, 500));
 
 describe("<MetObject/>", () => {
-  let wrapper = '';
-  const setMetaData = jest.fn();
-  const useStateSpy = jest.spyOn(React, "useState");
-  useStateSpy.mockImplementation((metData) => [metData, setMetaData]);
-
-  // Run before each test
+  let container = null;
+  let globalFetch = global.fetch;
   beforeEach(() => {
-    wrapper = shallow(<MetObject />);
+    /*jest.spyOn(global, "fetch").mockImplementation(() =>
+      Promise.resolve({
+        json: () => Promise.resolve(testData)
+      })
+    );*/
+    global.fetch = jest.fn().mockImplementation(() =>
+      Promise.resolve({
+        json: () => Promise.resolve(testData)
+      })
+    );
+    container = document.createElement("div");
+    document.body.appendChild(container);
   });
 
-  // Run after
   afterEach(() => {
-    wrapper = null;
-    jest.clearAllMocks();
+    unmountComponentAtNode(container);
+    container.remove();
+    container = null;
+    global.fetch = globalFetch;
+    //global.fetch.mockRestore();
   });
 
-  it("testing set metadata", () => {
-    //expect(wrapper.find("div").exists()).toBe(true);
-    //expect(setMetaData).toHaveBeenCalledTimes(1);
+  it("testing", async () => {
+    await act(async () => {
+      render(<MetObject />, container);
+    });
+    console.log(container.querySelector("h2").textContent);
+    await act(async () => waitForAPI());
+    console.log(container.querySelector("h2").textContent);
+    //expect(container.querySelector("h2").textContent).toBe(testData.title);
   });
 });
