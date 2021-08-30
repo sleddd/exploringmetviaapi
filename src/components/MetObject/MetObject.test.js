@@ -4,8 +4,6 @@ import testData from "../../../testing/testData";
 import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 
-const waitForAPI = () => new Promise((resolve) => setTimeout(resolve, 500));
-
 describe("<MetObject/>", () => {
   let container = null;
 
@@ -26,11 +24,10 @@ describe("<MetObject/>", () => {
     self.fetch.mockRestore();
   });
 
-  it("testing", async () => {
+  it("Testing MetObject Title", async () => {
     await act(async () => {
       render(<MetObject />, container);
     });
-    console.log(container.querySelector("h2").textContent);
     expect(container.querySelector("h2").textContent).toBe(testData.title);
   });
 });
