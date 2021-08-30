@@ -8,14 +8,9 @@ const waitForAPI = () => new Promise((resolve) => setTimeout(resolve, 500));
 
 describe("<MetObject/>", () => {
   let container = null;
-  let globalFetch = global.fetch;
+
   beforeEach(() => {
-    /*jest.spyOn(global, "fetch").mockImplementation(() =>
-      Promise.resolve({
-        json: () => Promise.resolve(testData)
-      })
-    );*/
-    global.fetch = jest.fn().mockImplementation(() =>
+    jest.spyOn(self, "fetch").mockImplementation(() =>
       Promise.resolve({
         json: () => Promise.resolve(testData)
       })
@@ -28,8 +23,7 @@ describe("<MetObject/>", () => {
     unmountComponentAtNode(container);
     container.remove();
     container = null;
-    global.fetch = globalFetch;
-    //global.fetch.mockRestore();
+    self.fetch.mockRestore();
   });
 
   it("testing", async () => {
@@ -37,8 +31,6 @@ describe("<MetObject/>", () => {
       render(<MetObject />, container);
     });
     console.log(container.querySelector("h2").textContent);
-    await act(async () => waitForAPI());
-    console.log(container.querySelector("h2").textContent);
-    //expect(container.querySelector("h2").textContent).toBe(testData.title);
+    expect(container.querySelector("h2").textContent).toBe(testData.title);
   });
 });
