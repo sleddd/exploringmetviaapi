@@ -4,6 +4,14 @@ import NextButton from "../General/Button/NextButton";
 import MoreLink from "../General/Button/MoreLink";
 import testData from "../../../testing/testData";
 import { useMountedRef } from "../../lib/useMountedRef";
+import { Artist } from "./subcomponents/Artist";
+import { Department } from "./subcomponents/Department";
+import { Repository } from "./subcomponents/Repository";
+import { CreditLine } from "./subcomponents/CreditLine";
+import { Medium } from "./subcomponents/Medium";
+import { ObjectDate } from "./subcomponents/ObjectDate";
+import { Location } from "./subcomponents/Location";
+import { ObjectTitle } from "./subcomponents/ObjecTitle";
 
 export default function (props) {
   const [metData, setMetData] = useState({});
@@ -34,7 +42,7 @@ export default function (props) {
 
   return (
     <Fragment>
-      {metData ? (
+      {metData && (
         <div className="metObject">
           <Image
             url={metData.primaryImage}
@@ -42,34 +50,26 @@ export default function (props) {
             className="col-md-6 pl-5"
           />
           <div>
-            <h2>
-              {metData.title && metData.title.length < 1
-                ? metData.objectName
-                : metData.title}
-            </h2>
+            <ObjectTitle name={metData.objectName} title={metData.title} />
             <p>
-              {metData.geographyType} {metData.country}{" "}
-              <span>{metData.objectDate}</span>{" "}
-              {metData.medium
-                ? " from " + metData.medium.toLowerCase() + "."
-                : ""}{" "}
-              {metData.artistDisplayName
-                ? "By " + metData.artistDisplayName + "."
-                : ""}{" "}
-              {metData.department ? metData.department + " of the " : ""}{" "}
-              {metData.repository}.{" "}
-              <span>
-                {metData.creditLine}
-                <br />
-                {metData.culture}
-              </span>
+              <ObjectDate date={metData.objectDate} />
+              <Location
+                geographyType={metData.geographyType}
+                country={metData.country}
+              />
+              <Medium medium={metData.medium} />
+              <Artist name={metData.artistDisplayName} />
+              <Department department={metData.department} />
+              <Repository repository={metData.repository} />
+              <CreditLine
+                credit={metData.CreditLine}
+                culture={metData.culture}
+              />
             </p>
             <MoreLink link={metData.objectURL} text={"View Details"} />
             <NextButton onClickHandler={getRandomObject} text="Next Slide" />
           </div>
         </div>
-      ) : (
-        ""
       )}
     </Fragment>
   );
