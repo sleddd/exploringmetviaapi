@@ -23,7 +23,7 @@ body {
     p {
       font-size: 1rem;
       span {
-        font-size: 1.8rem;
+        font-size: 1.65rem;
       }
     }
   }
@@ -48,7 +48,7 @@ h1 {
 
   p {
     font-size: 0.98rem;
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid #999;
     padding-bottom: 1rem;
     font-family: Helvetica, Arial, "Noto Sans SC", "Noto Sans TC",
       "Noto Sans JP", "Noto Sans KR", sans-serif;
@@ -82,14 +82,15 @@ h1 {
 
   .artist {
     display: block;
-    color: gray;
+    color: #000;
     font-weight: 100;
     margin: 10px 0;
   }
 
   .repo {
     display: block;
-    color: gray;
+    color: #000;
+    font-weight: 300;
     font-style: italic;
     margin-bottom: 0px;
   }
@@ -98,7 +99,8 @@ h1 {
   .credit {
     font-style: italic;
     display: inline;
-    color: gray;
+    font-weight: 300;
+    color: #000;
   }
 
   div:nth-child(1),
@@ -168,18 +170,17 @@ h1 {
 .nextBtn {
   background: transparent;
   float: right;
-  text-align: left;
-  margin: 0 0 0 0px;
-  padding: 0;
-  border: 0px;
-  font-style: italic;
-  color: #777;
-  transition: color 0.35s ease-in-out;
+  border: 0;
+  color: gray;
+  margin-top: 0px;
+  font-size: 13px;
+  font-family: Helvetica, Arial, "Noto Sans SC", "Noto Sans TC", "Noto Sans JP",
+    "Noto Sans KR", sans-serif;
   text-decoration: none;
+  text-transform: uppercase;
+  transition: color 0.35s ease-in-out;
   span {
-    padding: 0;
-    color: #777;
-    transition: color 0.2s 0.35s ease-in-out;
+    transition: color 0.2s 0.34s ease-in-out;
   }
   &:hover {
     color: #e4222c;
@@ -192,19 +193,22 @@ h1 {
 .moreBtn {
   float: left;
   color: gray;
-  font-style: italic;
+  font-size: 13px;
+  text-transform: uppercase;
+  font-family: Helvetica, Arial, "Noto Sans SC", "Noto Sans TC", "Noto Sans JP",
+    "Noto Sans KR", sans-serif;
   padding-bottom: 20px;
   transition: color 0.7s ease-in-out;
   text-decoration: none;
   span {
-    color: #c0392b;
-    font-size: 12px;
+    color: #000;
+    font-size: 10px;
     margin-right: 6px;
   }
   &:hover {
-    color: #c0392b;
+    color: #e4222c;
     span {
-      color: #c0392b;
+      color: #e4222c;
     }
   }
 }
