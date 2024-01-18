@@ -21,7 +21,7 @@ body {
   }
   @media (max-width: 640px) {
     p {
-      font-size: 1rem;
+      font-size: 1.1rem;
       span {
         font-size: 1.65rem;
       }
@@ -110,12 +110,17 @@ h1 {
     margin: 2.5rem 0 3rem 1rem;
     min-width: 240px;
     max-width: 300px;
+    @media (max-width: 1000px) {
+      min-width: 93%;
+      max-width: 93%;
+      margin: 2.5rem 0 3rem 0.5rem;
+    }
   }
 
   div.spinner-container {
     align-self: center;
-    min-width: 50%;
-    max-width: 300px;
+    min-width: 50% !important;
+    max-width: 300px !important;
     text-align: center;
 
     .spinner-border {
@@ -137,6 +142,7 @@ h1 {
   svg {
     max-width: 100%;
     opacity: 1;
+    margin-right: 2.5rem;
     animation: fadeIn 0.6s ease-in-out 1;
   }
 
@@ -145,6 +151,7 @@ h1 {
     padding-top: 1rem;
     div {
       max-width: 100%;
+      padding-left: 0;
     }
     img,
     div,
@@ -173,7 +180,8 @@ h1 {
   float: right;
   border: 0;
   color: gray;
-  margin-top: 0px;
+  margin: 0 4px 0 0;
+  padding: 0;
   font-size: 13px;
   font-family: Helvetica, Arial, "Noto Sans SC", "Noto Sans TC", "Noto Sans JP",
     "Noto Sans KR", sans-serif;
