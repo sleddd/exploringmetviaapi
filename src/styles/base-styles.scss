@@ -1,5 +1,5 @@
 body {
-  font-family: 'Playfair Display', serif;
+  font-family: Georgia, serif;
   font-size: 16px;
   position: relative;
 }
@@ -7,13 +7,13 @@ body {
 .navbar {
   background-color: #e4222c;
   p {
-    font-size: 24px;
+    font-size: 1.2rem;
     color: #fff;
     font-style: italic;
     span {
+      font-size: 2.2rem;
       font-weight: bolder;
       font-style: normal;
-      text-transform: uppercase;
     }
   }
 }
@@ -29,38 +29,112 @@ h1 {
   justify-content: flex-start;
   align-items: flex-start;
   padding: 3rem 1rem;
-  h1 {
+
+  h2 {
+    font-size: 1.6rem;
     padding: 0;
   }
-  div:nth-child(1), img {
-    flex: 1;
+
+  p {
+    font-size: 0.98rem;
+    border-bottom: 1px solid #000;
+    padding-bottom: 1rem;
+    font-family: Helvetica, Arial, "Noto Sans SC", "Noto Sans TC",
+      "Noto Sans JP", "Noto Sans KR", sans-serif;
+    line-height: 1.7;
   }
-  div {
-    align-self: center;
-    margin: 2rem 0 3rem 1.5rem;
+
+  span {
+    color: #000;
+    font-style: normal;
+    font-weight: 500;
+  }
+
+  .dateline {
+    font-weight: 600;
+  }
+
+  .location {
+    display: block;
+    margin-top: 0;
+    margin-bottom: 18px;
+    font-weight: 100;
+    font-style: italic;
+  }
+
+  .medium {
+    display: block;
+    margin: 18px 0 0 0;
+    color: #000;
+    font-style: normal;
+  }
+
+  .artist {
+    display: block;
+    color: gray;
+    font-weight: 100;
+    margin: 10px 0;
+  }
+
+  .repo {
+    display: block;
+    color: gray;
+    font-style: italic;
+    margin-bottom: 0px;
+  }
+
+  .dept,
+  .credit {
+    font-style: italic;
+    display: inline;
+    color: gray;
+  }
+
+  div:nth-child(1),
+  div:not(.spinner-container) {
+    align-self: flex-start;
+    margin: 2.5rem 0 3rem 1.5rem;
+    min-width: 240px;
     max-width: 300px;
   }
+
+  div.spinner-container {
+    align-self: center;
+    min-width: 50%;
+    max-width: 300px;
+    text-align: center;
+
+    .spinner-border {
+      min-width: 100px;
+      min-height: 100px;
+    }
+  }
+
   img {
+    flex: 1;
+    opacity: 1;
+    min-width: 240px;
     max-width: 650px;
     margin-left: 3rem;
     margin-right: 2.5rem;
+    animation: fadeIn 0.6s ease-in-out 1;
   }
+
   svg {
     max-width: 100%;
-    margin: 0 2rem;
+    opacity: 1;
+    animation: fadeIn 0.6s ease-in-out 1;
   }
-  span {
-    color: gray;
-    font-style: italic;
-    font-weight: 500;
-  }
-  @media(max-width: 1000px) {
+
+  @media (max-width: 1000px) {
     flex-direction: column;
     padding-top: 1rem;
     div {
       max-width: 100%;
     }
-    img, div, svg {
+    img,
+    div,
+    svg {
       margin-left: auto;
       margin-right: auto;
     }
@@ -73,8 +147,8 @@ h1 {
   }
 }
 
-
-.btn, .btn-info {
+.btn,
+.btn-info {
   color: #fff;
   max-width: 200px;
   margin: 0 auto;
@@ -82,34 +156,58 @@ h1 {
 
 .nextBtn {
   background: transparent;
-  float: left;
-  clear: both;
-  text-align: left;;
-  margin: 1rem 0 0 0;
-  padding: 1rem 0 0 0;
+  float: right;
+  text-align: left;
+  margin: 0 0 0 0px;
+  padding: 0;
   border: 0px;
-  text-transform: uppercase;
+  font-style: italic;
+  color: #777;
+  transition: color 0.35s ease-in-out;
+  text-decoration: none;
   span {
-    float: right;
-    border: 1px solid #000;
-    font-style: normal;
-    font-size: 20px;
-    padding: 3px 9px;
-    margin-top: -10px;
-    margin-left: 15px;
-    border-radius: 50%;
-    color: #000;
+    padding: 0;
+    color: #777;
+    transition: color 0.2s 0.35s ease-in-out;
+  }
+  &:hover {
+    color: #e4222c;
+    span {
+      color: #d35400;
+    }
   }
 }
 
 .moreBtn {
-  width: 100%;
   float: left;
-  color: #000;
+  color: gray;
+  font-style: italic;
   padding-bottom: 20px;
-  border-bottom: 1px solid #000;
+  transition: color 0.7s ease-in-out;
+  text-decoration: none;
+  span {
+    color: #c0392b;
+    font-size: 12px;
+    margin-right: 6px;
+  }
+  &:hover {
+    color: #c0392b;
+    span {
+      color: #c0392b;
+    }
+  }
 }
 
 .sr-only {
   visibility: hidden;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0.45;
+  }
+
+  to {
+    opacity: 1;
+  }
 }

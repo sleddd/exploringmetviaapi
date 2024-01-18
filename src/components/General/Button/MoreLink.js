@@ -10,6 +10,7 @@ export default (props) => (
         target="_blank"
         rel="noreferrer"
       >
+        <span>&#128279;</span>
         {props.text}
       </a>
     ) : (

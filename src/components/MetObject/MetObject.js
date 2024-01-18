@@ -53,21 +53,25 @@ export default function (props) {
             <ObjectTitle name={metData.objectName} title={metData.title} />
             <p>
               <ObjectDate date={metData.objectDate} />
+              <Medium medium={metData.medium} />
+              <Artist name={metData.artistDisplayName} />
+              <br />
               <Location
                 geographyType={metData.geographyType}
                 country={metData.country}
               />
-              <Medium medium={metData.medium} />
-              <Artist name={metData.artistDisplayName} />
-              <Department department={metData.department} />
               <Repository repository={metData.repository} />
+              <Department department={metData.department} />
               <CreditLine
                 credit={metData.CreditLine}
                 culture={metData.culture}
               />
             </p>
             <MoreLink link={metData.objectURL} text={"View Details"} />
-            <NextButton onClickHandler={getRandomObject} text="Next Slide" />
+            <NextButton
+              onClickHandler={getRandomObject}
+              buttonText="Next Slide"
+            />
           </div>
         </div>
       )}
